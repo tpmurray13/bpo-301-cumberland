@@ -166,7 +166,7 @@
         /* Photo Area */
         .photo-box {
             background: #f9fafb;
-            border: 1px dashed #d1d5db;
+            border: 1px solid var(--border);
             border-radius: 8px;
             height: 100%;
             display: flex; flex-direction: column;
@@ -372,7 +372,7 @@
             <div class="price-inputs">
                 <div class="input-group">
                     <label>Indicated $/SF</label>
-                    <input type="text" id="indicatedPerAcre" value="87.43">
+                    <input type="text" id="indicatedPerSF" value="87.43">
                 </div>
                 <div class="input-group">
                     <label>Indicated Price</label>
@@ -446,7 +446,8 @@
     }
 
     function toNumber(str) {
-        return parseFloat(str.replace(/[^0-9.-]+/g,""));
+        if (typeof str === "number") return str;
+        return parseFloat(str.replace(/[^0-9.-]+/g,"")) || 0;
     }
 
     function setPreparedFor(val) {
@@ -464,35 +465,31 @@
 
     function buildCompsTable() {
         const tbody = document.getElementById("compsBody");
+        if (!tbody) return;
         tbody.innerHTML = "";
         comps.forEach(c => {
             const tr = document.createElement("tr");
-            tr.innerHTML = `
-                <td><strong>\${c.name}</strong></td>
-                <td>\${c.sale_date}</td>
-                <td class="td-num">$\${fmt0(c.sale_price)}</td>
-                <td class="td-num">\${fmt0(c.size)}</td>
-                <td class="td-num">\${c.metric}</td>
-                <td>
-                    <span class="pill">\${c.zoning}</span>
-                    <div style="margin-top:6px; color:#666;">\${c.notes}</div>
-                </td>
-            `;
+            tr.innerHTML = "<td><strong>" + c.name + "</strong></td>" +
+                           "<td>" + c.sale_date + "</td>" +
+                           "<td class='td-num'>$" + fmt0(c.sale_price) + "</td>" +
+                           "<td class='td-num'>" + fmt0(c.size) + "</td>" +
+                           "<td class='td-num'>" + c.metric + "</td>" +
+                           "<td><span class='pill'>" + c.zoning + "</span>" +
+                           "<div style='margin-top:6px; color:#666;'>" + c.notes + "</div></td>";
             tbody.appendChild(tr);
         });
     }
 
     function recalc() {
-        const psf = toNumber(document.getElementById("indicatedPerAcre").value);
+        const psf = toNumber(document.getElementById("indicatedPerSF").value);
         const sf = DEFAULTS.buildingSF;
-        const indicated = isFinite(psf) ? psf * sf : DEFAULTS.indicatedPerSF * sf;
+        const indicated = psf * sf;
         document.getElementById("indicatedPrice").value = "$" + fmt0(indicated);
 
         const listInput = document.getElementById("recommendedListPrice");
         const lv = toNumber(listInput.value);
         if (isFinite(lv)) {
-            listInput.value = fmt0(lv);
-            document.getElementById("opinionPriceDisplay").textContent = fmt0(lv);
+            document.getElementById("opinionPriceDisplay").textContent = "$" + fmt0(lv);
         }
     }
 
@@ -504,7 +501,7 @@
     function resetToDefaults() {
         setPreparedFor(DEFAULTS.preparedFor);
         setBpoType(DEFAULTS.bpoType);
-        document.getElementById("indicatedPerAcre").value = DEFAULTS.indicatedPerSF;
+        document.getElementById("indicatedPerSF").value = DEFAULTS.indicatedPerSF;
         document.getElementById("recommendedListPrice").value = fmt0(DEFAULTS.recommendedListPrice);
         recalc();
     }
@@ -513,7 +510,7 @@
         setPreparedFor(DEFAULTS.preparedFor);
         setBpoType(DEFAULTS.bpoType);
         buildCompsTable();
-        document.getElementById("indicatedPerAcre").addEventListener("input", recalc);
+        document.getElementById("indicatedPerSF").addEventListener("input", recalc);
         document.getElementById("recommendedListPrice").addEventListener("input", recalc);
         recalc();
     })();
