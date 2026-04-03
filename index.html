@@ -427,91 +427,100 @@
 </div>
 
 <script>
-    const DEFAULTS = {
-        preparedFor: "SMS Financial",
-        bpoType: "Sale",
-        buildingSF: 4003,
-        indicatedPerSF: 87.43,
-        recommendedListPrice: 350000
-    };
+    (function() {
+        const DEFAULTS = {
+            preparedFor: "SMS Financial",
+            bpoType: "Sale",
+            buildingSF: 4003,
+            indicatedPerSF: 87.43,
+            recommendedListPrice: 350000
+        };
 
-    const comps = [
-        { name: "109 Drake St", sale_date: "11/2025", sale_price: 155000, size: 3230, metric: "0.54 AC", zoning: "Industrial", notes: "Masonry, Fenced lot, Signage." },
-        { name: "1234 Gillespie St", sale_date: "04/2024", sale_price: 110000, size: 2592, metric: "0.41 AC", zoning: "CC AOD", notes: "Flex/Showroom, Masonry." },
-        { name: "1036 Southern Ave", sale_date: "10/2025", sale_price: 270000, size: 8945, metric: "0.80 AC", zoning: "Flex", notes: "Larger footprint, masonry." }
-    ];
+        const comps = [
+            { name: "109 Drake St", sale_date: "11/2025", sale_price: 155000, size: 3230, metric: "0.54 AC", zoning: "Industrial", notes: "Masonry, Fenced lot, Signage." },
+            { name: "1234 Gillespie St", sale_date: "04/2024", sale_price: 110000, size: 2592, metric: "0.41 AC", zoning: "CC AOD", notes: "Flex/Showroom, Masonry." },
+            { name: "1036 Southern Ave", sale_date: "10/2025", sale_price: 270000, size: 8945, metric: "0.80 AC", zoning: "Flex", notes: "Larger footprint, masonry." }
+        ];
 
-    function fmt0(num) {
-        return Number(num).toLocaleString(undefined, { maximumFractionDigits: 0 });
-    }
-
-    function toNumber(str) {
-        if (typeof str === "number") return str;
-        return parseFloat(str.replace(/[^0-9.-]+/g,"")) || 0;
-    }
-
-    function setPreparedFor(val) {
-        const el = document.getElementById("preparedForDisplay");
-        if (el) el.textContent = "Prepared For: " + val;
-    }
-
-    function setBpoType(t) {
-        const safe = (t || "Sale").trim();
-        const el = document.getElementById("bpoTypeLabel");
-        if (el) el.textContent = safe;
-        const sub = document.getElementById("bpoTypeSub");
-        if (sub) sub.textContent = safe;
-    }
-
-    function buildCompsTable() {
-        const tbody = document.getElementById("compsBody");
-        if (!tbody) return;
-        tbody.innerHTML = "";
-        comps.forEach(c => {
-            const tr = document.createElement("tr");
-            tr.innerHTML = "<td><strong>" + c.name + "</strong></td>" +
-                           "<td>" + c.sale_date + "</td>" +
-                           "<td class='td-num'>$" + fmt0(c.sale_price) + "</td>" +
-                           "<td class='td-num'>" + fmt0(c.size) + "</td>" +
-                           "<td class='td-num'>" + c.metric + "</td>" +
-                           "<td><span class='pill'>" + c.zoning + "</span>" +
-                           "<div style='margin-top:6px; color:#666;'>" + c.notes + "</div></td>";
-            tbody.appendChild(tr);
-        });
-    }
-
-    function recalc() {
-        const psf = toNumber(document.getElementById("indicatedPerSF").value);
-        const sf = DEFAULTS.buildingSF;
-        const indicated = psf * sf;
-        document.getElementById("indicatedPrice").value = "$" + fmt0(indicated);
-
-        const listInput = document.getElementById("recommendedListPrice");
-        const lv = toNumber(listInput.value);
-        if (isFinite(lv)) {
-            document.getElementById("opinionPriceDisplay").textContent = "$" + fmt0(lv);
+        function fmt0(num) {
+            return Number(num).toLocaleString(undefined, { maximumFractionDigits: 0 });
         }
-    }
 
-    function editBpoType() {
-        const t = prompt("BPO Type (Sale, Lease, Both):", document.getElementById("bpoTypeLabel").textContent);
-        if (t !== null) setBpoType(t);
-    }
+        function toNumber(str) {
+            if (typeof str === "number") return str;
+            if (!str) return 0;
+            return parseFloat(str.toString().replace(/[^0-9.-]+/g,"")) || 0;
+        }
 
-    function resetToDefaults() {
-        setPreparedFor(DEFAULTS.preparedFor);
-        setBpoType(DEFAULTS.bpoType);
-        document.getElementById("indicatedPerSF").value = DEFAULTS.indicatedPerSF;
-        document.getElementById("recommendedListPrice").value = fmt0(DEFAULTS.recommendedListPrice);
-        recalc();
-    }
+        function setPreparedFor(val) {
+            const el = document.getElementById("preparedForDisplay");
+            if (el) el.textContent = "Prepared For: " + val;
+        }
 
-    (function init() {
+        function setBpoType(t) {
+            const safe = (t || "Sale").trim();
+            const el = document.getElementById("bpoTypeLabel");
+            if (el) el.textContent = safe;
+            const sub = document.getElementById("bpoTypeSub");
+            if (sub) sub.textContent = safe;
+        }
+
+        function buildCompsTable() {
+            const tbody = document.getElementById("compsBody");
+            if (!tbody) return;
+            tbody.innerHTML = "";
+            comps.forEach(function(c) {
+                const tr = document.createElement("tr");
+                let html = "";
+                html += "<td><strong>" + c.name + "</strong></td>";
+                html += "<td>" + c.sale_date + "</td>";
+                html += "<td class='td-num'>$" + fmt0(c.sale_price) + "</td>";
+                html += "<td class='td-num'>" + fmt0(c.size) + "</td>";
+                html += "<td class='td-num'>" + c.metric + "</td>";
+                html += "<td><span class='pill'>" + c.zoning + "</span>";
+                html += "<div style='margin-top:6px; color:#666;'>" + c.notes + "</div></td>";
+                tr.innerHTML = html;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function recalc() {
+            const psfInput = document.getElementById("indicatedPerSF");
+            const psf = toNumber(psfInput.value);
+            const sf = DEFAULTS.buildingSF;
+            const indicated = psf * sf;
+            const indicatedPriceInput = document.getElementById("indicatedPrice");
+            if (indicatedPriceInput) indicatedPriceInput.value = "$" + fmt0(indicated);
+
+            const listInput = document.getElementById("recommendedListPrice");
+            const lv = toNumber(listInput.value);
+            const displayEl = document.getElementById("opinionPriceDisplay");
+            if (displayEl) displayEl.textContent = "$" + fmt0(lv);
+        }
+
+        window.editBpoType = function() {
+            const t = prompt("BPO Type (Sale, Lease, Both):", document.getElementById("bpoTypeLabel").textContent);
+            if (t !== null) setBpoType(t);
+        };
+
+        window.resetToDefaults = function() {
+            setPreparedFor(DEFAULTS.preparedFor);
+            setBpoType(DEFAULTS.bpoType);
+            document.getElementById("indicatedPerSF").value = DEFAULTS.indicatedPerSF;
+            document.getElementById("recommendedListPrice").value = fmt0(DEFAULTS.recommendedListPrice);
+            recalc();
+        };
+
+        // Init
         setPreparedFor(DEFAULTS.preparedFor);
         setBpoType(DEFAULTS.bpoType);
         buildCompsTable();
-        document.getElementById("indicatedPerSF").addEventListener("input", recalc);
-        document.getElementById("recommendedListPrice").addEventListener("input", recalc);
+        
+        const i1 = document.getElementById("indicatedPerSF");
+        const i2 = document.getElementById("recommendedListPrice");
+        if (i1) i1.addEventListener("input", recalc);
+        if (i2) i2.addEventListener("input", recalc);
+        
         recalc();
     })();
 </script>
