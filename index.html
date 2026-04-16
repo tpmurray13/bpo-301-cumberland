@@ -24,22 +24,20 @@
             margin: 0; padding: 0;
             background: var(--bg);
             color: var(--dark);
-            font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            font-family: 'Montserrat', sans-serif;
         }
         a { color: var(--green); text-decoration: none; }
-        a:hover { text-decoration: underline; }
 
         /* Toolbar */
         .toolbar {
             position: sticky; top: 0; z-index: 50;
-            background: rgba(245,247,247,.92);
+            background: rgba(245,247,247,.95);
             backdrop-filter: blur(8px);
             border-bottom: 1px solid var(--border);
             padding: 10px 14px;
-            display: flex; gap: 10px; align-items: center; justify-content: center; flex-wrap: wrap;
+            display: flex; gap: 10px; align-items: center; justify-content: center;
         }
         .btn {
-            appearance: none;
             border: 1px solid var(--border);
             background: white;
             color: var(--dark);
@@ -48,479 +46,231 @@
             font-size: 13px;
             font-weight: 600;
             cursor: pointer;
-            transition: all .15s;
-            display: inline-flex; align-items: center; gap: 6px;
         }
-        .btn:hover { background: #f9fafb; border-color: #d1d5db; }
-        .btn-primary {
-            background: var(--green);
-            color: white;
-            border-color: var(--green);
-        }
-        .btn-primary:hover { background: #09552e; border-color: #09552e; }
+        .btn-primary { background: var(--green); color: white; border-color: var(--green); }
 
         /* Page Layout */
-        .page-container {
-            padding: 40px 20px;
-            display: flex; justify-content: center;
-        }
+        .page-container { padding: 40px 20px; display: flex; justify-content: center; }
         .page {
             width: var(--page-w);
             min-height: var(--page-h);
             background: white;
             box-shadow: var(--shadow);
             padding: var(--page-pad);
-            position: relative;
-            overflow: hidden;
         }
 
         /* Header */
         header {
             display: flex; justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 30px;
-            border-bottom: 2px solid var(--bg);
+            margin-bottom: 30px; border-bottom: 2px solid var(--bg);
             padding-bottom: 20px;
         }
-        .logo-text {
-            color: var(--green);
-            font-weight: 800;
-            font-size: 18px;
-            letter-spacing: -0.5px;
-        }
-        .bpo-title {
-            text-align: right;
-        }
-        .bpo-title h1 {
-            margin: 0;
-            font-size: 16px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .bpo-title p {
-            margin: 4px 0 0;
-            font-size: 11px;
-            color: var(--muted);
-            line-height: 1.4;
-        }
+        .logo-text { color: var(--green); font-weight: 800; font-size: 18px; }
+        .bpo-title { text-align: right; }
+        .bpo-title h1 { margin: 0; font-size: 16px; font-weight: 800; text-transform: uppercase; }
+        .bpo-title p { margin: 4px 0 0; font-size: 11px; color: var(--muted); }
 
         /* Property Header */
         .prop-header { margin-bottom: 25px; }
-        .prop-header .date {
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--green);
-            margin-bottom: 6px;
-        }
-        .prop-header h2 {
-            margin: 0;
-            font-size: 24px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-        }
-        .prop-header .prepared {
-            font-size: 13px;
-            color: var(--muted);
-            margin-top: 4px;
-            font-weight: 600;
-        }
+        .prop-header h2 { margin: 0; font-size: 24px; font-weight: 800; letter-spacing: -0.5px; }
+        .prepared { font-size: 13px; color: var(--muted); margin-top: 4px; font-weight: 600; }
 
-        /* Grid */
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 25px;
-        }
-        .card {
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 16px;
-            background: #fff;
-        }
-        .card-title {
-            font-size: 11px;
-            font-weight: 800;
-            text-transform: uppercase;
-            color: var(--green);
-            margin-bottom: 12px;
-            letter-spacing: 0.5px;
-            display: flex; align-items: center; gap: 6px;
-        }
-        .card-title::after {
-            content: ""; flex: 1; height: 1px; background: var(--border);
-        }
+        /* Data Layout */
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px; }
+        .card { border: 1px solid var(--border); border-radius: 8px; padding: 16px; background: #fff; }
+        .card-title { font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--green); margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
+        .card-title::after { content: ""; flex: 1; height: 1px; background: var(--border); }
 
-        /* Data List */
-        .data-list { font-size: 12px; }
-        .data-row {
-            display: flex; justify-content: space-between;
-            padding: 7px 0;
-            border-bottom: 1px solid #f9fafb;
-        }
-        .data-row:last-child { border: none; }
+        .data-list { font-size: 11px; }
+        .data-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid #f9fafb; }
         .data-label { color: var(--muted); font-weight: 500; }
         .data-value { font-weight: 700; text-align: right; }
 
-        /* Photo Area */
-        .photo-box {
-            background: #f9fafb;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            height: 100%;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            color: var(--muted);
-            font-size: 12px;
-            overflow: hidden;
-            position: relative;
-        }
-        .photo-box img {
-            width: 100%; height: 100%; object-fit: cover;
-        }
+        .photo-box { background: #f9fafb; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+        .photo-box img { width: 100%; height: 100%; object-fit: cover; }
 
         /* Price Section */
         .price-section {
-            background: #f0fdf4;
-            border: 2px solid #bbf7d0;
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 25px;
-            position: relative;
+            background: #f0fdf4; border: 2px solid #bbf7d0;
+            border-radius: 12px; padding: 24px; margin-bottom: 25px;
         }
-        .price-main {
-            display: flex; align-items: baseline; gap: 12px;
-        }
-        .price-value {
-            font-size: 42px;
-            font-weight: 800;
-            letter-spacing: -1px;
-            color: var(--dark);
-        }
-        .price-label {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--green);
-        }
-        .price-range {
-            font-size: 14px;
-            color: var(--muted);
-            margin-top: 4px;
-            font-weight: 600;
-        }
-        .price-inputs {
-            display: flex; gap: 20px;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #dcfce7;
-        }
+        .price-main { display: flex; align-items: baseline; gap: 12px; }
+        .price-value { font-size: 42px; font-weight: 800; color: var(--dark); }
+        .price-label { font-size: 13px; font-weight: 700; color: var(--green); }
+        
+        .price-inputs { display: flex; gap: 20px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #dcfce7; }
         .input-group { flex: 1; }
-        .input-group label {
-            display: block; font-size: 10px; font-weight: 700;
-            color: var(--muted); text-transform: uppercase;
-            margin-bottom: 6px;
-        }
-        .input-group input {
-            width: 100%; border: 1px solid #d1d5db;
-            padding: 8px 10px; border-radius: 6px;
-            font-size: 14px; font-weight: 700; font-family: inherit;
-        }
+        .input-group label { display: block; font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
+        .input-group input { width: 100%; border: 1px solid #d1d5db; padding: 8px 10px; border-radius: 6px; font-size: 14px; font-weight: 700; }
 
-        /* Analysis Summary */
-        .analysis { margin-bottom: 25px; }
-        .analysis h3 {
-            font-size: 11px; font-weight: 800; color: var(--green);
-            text-transform: uppercase; margin: 0 0 12px;
-            display: flex; align-items: center; gap: 8px;
-        }
-        .analysis h3::before {
-            content: ""; width: 3px; height: 14px; background: var(--green);
-        }
-        .analysis p {
-            font-size: 12.5px; line-height: 1.6; color: #4b5563;
-            margin: 0; text-align: justify;
-        }
-
-        /* Comps Table */
-        table {
-            width: 100%; border-collapse: collapse;
-            font-size: 11px; margin-top: 15px;
-        }
-        th {
-            text-align: left; padding: 10px;
-            background: #f9fafb; color: var(--muted);
-            font-weight: 700; text-transform: uppercase;
-            border-bottom: 2px solid var(--border);
-        }
-        td {
-            padding: 12px 10px; border-bottom: 1px solid var(--border);
-            vertical-align: top;
-        }
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; font-size: 10.5px; margin-top: 10px; }
+        th { text-align: left; padding: 10px; background: #f9fafb; color: var(--muted); border-bottom: 2px solid var(--border); text-transform: uppercase; font-size: 9px; }
+        td { padding: 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
         .td-num { font-weight: 700; }
-        .pill {
-            background: #f3f4f6; padding: 2px 6px;
-            border-radius: 4px; font-weight: 600; font-size: 10px;
-        }
+        .pill { background: #f3f4f6; padding: 2px 6px; border-radius: 4px; font-weight: 600; font-size: 9px; }
 
-        /* Footer Info Cards */
-        .footer-metrics {
-            display: grid; grid-template-columns: repeat(3, 1fr);
-            gap: 15px; margin-top: 20px;
-        }
-        .metric-card {
-            background: #fff; border: 1px solid var(--border);
-            padding: 12px; border-radius: 8px; text-align: center;
-        }
-        .metric-val { font-size: 18px; font-weight: 800; color: var(--dark); }
-        .metric-lab { font-size: 9px; font-weight: 700; color: var(--muted); text-transform: uppercase; margin-top: 4px; }
+        .analysis { margin-bottom: 25px; font-size: 12px; line-height: 1.6; color: #4b5563; }
+        .analysis h3 { font-size: 11px; color: var(--green); text-transform: uppercase; margin-bottom: 8px; }
 
-        /* Print Overrides */
         @media print {
-            .toolbar, .btn { display: none !important; }
-            body { background: white; }
+            .toolbar { display: none !important; }
             .page-container { padding: 0; }
-            .page { box-shadow: none; border: none; width: 100%; height: auto; padding: 0; }
+            .page { box-shadow: none; width: 100%; padding: 0.5in; }
         }
     </style>
 </head>
 <body>
 
 <div class="toolbar">
-    <div class="btn-group">
-        <button class="btn" onclick="editBpoType()" id="bpoTypeBtn">
-            <span id="bpoTypeLabel">Sale</span>
-        </button>
-        <button class="btn" onclick="resetToDefaults()">Reset Defaults</button>
-    </div>
+    <button class="btn" onclick="resetToDefaults()">Reset Defaults</button>
     <button class="btn btn-primary" onclick="window.print()">Export to PDF</button>
 </div>
 
 <div class="page-container">
-    <div class="page" id="bpoPage">
+    <div class="page">
         <header>
-            <div class="logo-area">
-                <div class="logo-text">GRANT-MURRAY REAL ESTATE, LLC</div>
-            </div>
+            <div class="logo-text">GRANT-MURRAY REAL ESTATE, LLC</div>
             <div class="bpo-title">
-                <h1>Broker Price Opinion (BPO)</h1>
-                <p>Prepared by: Patrick Murray, CCIM, SIOR<br>
-                910.861.0449 | patrick@grantmurrayre.com<br>
-                NC #231098</p>
+                <h1>Broker Price Opinion</h1>
+                <p>Patrick Murray, CCIM, SIOR | NC #231098</p>
             </div>
         </header>
 
         <div class="prop-header">
-            <div class="date">Date: April 3, 2026</div>
             <h2>301 Cumberland St Assembly</h2>
-            <div class="prepared" id="preparedForDisplay">Prepared For: SMS Financial</div>
+            <div class="prepared">Prepared For: SMS Financial | April 16, 2026</div>
         </div>
 
         <div class="grid">
             <div class="card">
-                <div class="card-title">Property Summary</div>
+                <div class="card-title">Assembly Details</div>
                 <div class="data-list">
                     <div class="data-row">
-                        <span class="data-label">Parcel ID</span>
-                        <span class="data-value">437-58-6604 (Assy)</span>
+                        <span class="data-label">Parcel 1 (0.31 AC)</span>
+                        <span class="data-value">0437-58-6604</span>
                     </div>
                     <div class="data-row">
-                        <span class="data-label">Site Size</span>
-                        <span class="data-value">1.55 Acres</span>
+                        <span class="data-label">Parcel 2 (0.17 AC)</span>
+                        <span class="data-value">0437-58-6418</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">Parcel 3 (0.17 AC)</span>
+                        <span class="data-value">0437-58-6523</span>
+                    </div>
+                    <div class="data-row">
+                        <span class="data-label">Parcel 4 (0.90 AC)</span>
+                        <span class="data-value">0437-58-6399</span>
+                    </div>
+                    <div class="data-row" style="border-top: 1px solid var(--green); margin-top: 4px;">
+                        <span class="data-label" style="color:var(--green); font-weight:800;">Total Acreage</span>
+                        <span class="data-value" style="color:var(--green);">1.55 Acres</span>
                     </div>
                     <div class="data-row">
                         <span class="data-label">Zoning</span>
                         <span class="data-value">CC (Community Commercial)</span>
                     </div>
                     <div class="data-row">
-                        <span class="data-label">Building Size</span>
-                        <span class="data-value">~4,003 SF (Total)</span>
-                    </div>
-                    <div class="data-row">
-                        <span class="data-label">Property Condition</span>
-                        <span class="data-value">As-Is (Foreclosure)</span>
-                    </div>
-                    <div class="data-row">
-                        <span class="data-label">County</span>
-                        <span class="data-value">Cumberland</span>
-                    </div>
-                    <div class="data-row">
-                        <span class="data-label">Notes</span>
-                        <span class="data-value">Office + Retail + Land</span>
+                        <span class="data-label">Total Improvements</span>
+                        <span class="data-value">4,003 SF</span>
                     </div>
                 </div>
             </div>
             <div class="photo-box">
-                <img src="https://www.dropbox.com/scl/fi/qmwtn691se10g1gvbwjag/Screenshot-2026-04-03-110743.png?rlkey=1zkycqfn5aab0k7bq8smuhjea&raw=1" alt="Aerial Photo">
+                <img src="https://www.dropbox.com/scl/fi/qmwtn691se10g1gvbwjag/Screenshot-2026-04-03-110743.png?rlkey=1zkycqfn5aab0k7bq8smuhjea&raw=1" alt="Aerial">
             </div>
         </div>
 
         <div class="price-section">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                <div>
-                    <div class="card-title">Price Opinion & Recommendation</div>
-                    <div class="price-main">
-                        <span class="price-value" id="opinionPriceDisplay">$350,000</span>
-                    </div>
-                    <div class="price-range">Suggested range: $330,000 – $375,000</div>
-                </div>
-                <div style="font-size:10px; color:var(--muted); font-weight:700; text-align:right; font-style:italic;">
-                    Type: <span id="bpoTypeSub">Sale</span> | Not an appraisal
-                </div>
+            <div class="card-title">Value Opinion</div>
+            <div class="price-main">
+                <span class="price-value" id="priceDisplay">$350,000</span>
+                <span class="price-label">As-Is Market Value</span>
             </div>
-
             <div class="price-inputs">
                 <div class="input-group">
                     <label>Indicated $/SF</label>
-                    <input type="text" id="indicatedPerSF" value="87.43">
+                    <input type="text" id="inPSF" value="87.43">
                 </div>
                 <div class="input-group">
-                    <label>Indicated Price</label>
-                    <input type="text" id="indicatedPrice" readonly>
+                    <label>Indicated Value</label>
+                    <input type="text" id="inVal" readonly>
                 </div>
                 <div class="input-group">
-                    <label>Recommended List Price</label>
-                    <input type="text" id="recommendedListPrice" value="350,000">
+                    <label>Recommended List</label>
+                    <input type="text" id="recList" value="350,000">
                 </div>
             </div>
         </div>
 
         <div class="analysis">
+            <div class="card" style="margin-bottom:15px; border-left: 4px solid #f59e0b;">
+                <h3 style="color:#b45309;">Environmental Disclosure</h3>
+                <p style="margin:0; font-size:11px;">NCDEQ records show no on-site issues. However, a **UST (Underground Storage Tank)** incident is recorded on the parcel immediately south of the assembly on Orange St. This factor is noted for potential redevelopment due diligence.</p>
+            </div>
             <h3>Analysis Summary</h3>
             <p>
-                The subject property is a 1.55-acre commercial assembly comprising 301 Cumberland St (~2,800 SF Office), 628 Orange St (~1,203 SF Retail), and two vacant parcels. The site is zoned CC (Community Commercial), offering significant redevelopment potential given its low building-to-land ratio. While the existing structures provide immediate utility, the primary value driver is the 0.90-acre surplus tract. A recorded UST incident on the adjacent parcel to the south (Orange St) is noted; however, no on-site environmental issues were identified. The valuation accounts for the current foreclosure status and the contributory value of the vacant land components.
+                The subject is a high-utility 1.55-acre assembly in Downtown Fayetteville. The primary value is driven by the 0.90-acre surplus tract and CC zoning. While 301 Cumberland (Office) and 628 Orange (Retail) are functional, the site is best suited for consolidated redevelopment. Market comps for small masonry buildings range from $30-$48/SF; our $/SF reflects the significant surplus land component relative to improved GLA.
             </p>
         </div>
 
-        <div class="card-title">Market Comparables (Sold)</div>
+        <div class="card-title">Sales Comparables</div>
         <table>
             <thead>
                 <tr>
-                    <th>Address / Name</th>
-                    <th>Sale Date</th>
+                    <th>Address</th>
+                    <th>Date</th>
                     <th>Price</th>
                     <th>SF</th>
-                    <th>AC / Unit</th>
+                    <th>Land</th>
                     <th>Zoning / Notes</th>
                 </tr>
             </thead>
-            <tbody id="compsBody">
-                <!-- Comps injected here -->
-            </tbody>
+            <tbody id="compTable"></tbody>
         </table>
-
-        <div class="footer-metrics">
-            <div class="metric-card">
-                <div class="metric-val">3</div>
-                <div class="metric-lab">Improved Comps</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-val">$225k</div>
-                <div class="metric-lab">Land Value Floor/AC</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-val">$87.43</div>
-                <div class="metric-lab">Subject $/SF (As-Is)</div>
-            </div>
-        </div>
     </div>
 </div>
 
 <script>
     (function() {
-        const DEFAULTS = {
-            preparedFor: "SMS Financial",
-            bpoType: "Sale",
-            buildingSF: 4003,
-            indicatedPerSF: 87.43,
-            recommendedListPrice: 350000
-        };
-
         const comps = [
-            { name: "109 Drake St", sale_date: "11/2025", sale_price: 155000, size: 3230, metric: "0.54 AC", zoning: "Industrial", notes: "Masonry, Fenced lot, Signage." },
-            { name: "1234 Gillespie St", sale_date: "04/2024", sale_price: 110000, size: 2592, metric: "0.41 AC", zoning: "CC AOD", notes: "Flex/Showroom, Masonry." },
-            { name: "1036 Southern Ave", sale_date: "10/2025", sale_price: 270000, size: 8945, metric: "0.80 AC", zoning: "Flex", notes: "Larger footprint, masonry." }
+            { a: "109 Drake St", d: "11/2025", p: 155000, s: 3230, l: "0.54 AC", z: "Industrial", n: "Fenced lot, Signage" },
+            { a: "1234 Gillespie St", d: "04/2024", p: 110000, s: 2592, l: "0.41 AC", z: "CC AOD", n: "Flex/Showroom" },
+            { a: "1036 Southern Ave", d: "10/2025", p: 270000, s: 8945, l: "0.80 AC", z: "Flex", n: "Masonry, larger footprint" }
         ];
 
-        function fmt0(num) {
-            return Number(num).toLocaleString(undefined, { maximumFractionDigits: 0 });
-        }
+        function f0(n) { return Number(n).toLocaleString(undefined, { maximumFractionDigits: 0 }); }
+        function toN(s) { return parseFloat(s.toString().replace(/[^0-9.-]+/g,"")) || 0; }
 
-        function toNumber(str) {
-            if (typeof str === "number") return str;
-            if (!str) return 0;
-            return parseFloat(str.toString().replace(/[^0-9.-]+/g,"")) || 0;
-        }
-
-        function setPreparedFor(val) {
-            const el = document.getElementById("preparedForDisplay");
-            if (el) el.textContent = "Prepared For: " + val;
-        }
-
-        function setBpoType(t) {
-            const safe = (t || "Sale").trim();
-            const el = document.getElementById("bpoTypeLabel");
-            if (el) el.textContent = safe;
-            const sub = document.getElementById("bpoTypeSub");
-            if (sub) sub.textContent = safe;
-        }
-
-        function buildCompsTable() {
-            const tbody = document.getElementById("compsBody");
-            if (!tbody) return;
-            tbody.innerHTML = "";
-            comps.forEach(function(c) {
+        function render() {
+            const t = document.getElementById("compTable");
+            t.innerHTML = "";
+            comps.forEach(c => {
                 const tr = document.createElement("tr");
-                let html = "";
-                html += "<td><strong>" + c.name + "</strong></td>";
-                html += "<td>" + c.sale_date + "</td>";
-                html += "<td class='td-num'>$" + fmt0(c.sale_price) + "</td>";
-                html += "<td class='td-num'>" + fmt0(c.size) + "</td>";
-                html += "<td class='td-num'>" + c.metric + "</td>";
-                html += "<td><span class='pill'>" + c.zoning + "</span>";
-                html += "<div style='margin-top:6px; color:#666;'>" + c.notes + "</div></td>";
-                tr.innerHTML = html;
-                tbody.appendChild(tr);
+                tr.innerHTML = "<td><strong>"+c.a+"</strong></td><td>"+c.d+"</td><td class='td-num'>$"+f0(c.p)+"</td><td class='td-num'>"+f0(c.s)+"</td><td class='td-num'>"+c.l+"</td><td><span class='pill'>"+c.z+"</span><div style='color:#666; font-size:9px; margin-top:4px;'>"+c.n+"</div></td>";
+                t.appendChild(tr);
             });
         }
 
         function recalc() {
-            const psfInput = document.getElementById("indicatedPerSF");
-            const psf = toNumber(psfInput.value);
-            const sf = DEFAULTS.buildingSF;
-            const indicated = psf * sf;
-            const indicatedPriceInput = document.getElementById("indicatedPrice");
-            if (indicatedPriceInput) indicatedPriceInput.value = "$" + fmt0(indicated);
-
-            const listInput = document.getElementById("recommendedListPrice");
-            const lv = toNumber(listInput.value);
-            const displayEl = document.getElementById("opinionPriceDisplay");
-            if (displayEl) displayEl.textContent = "$" + fmt0(lv);
+            const psf = toN(document.getElementById("inPSF").value);
+            const val = psf * 4003;
+            document.getElementById("inVal").value = "$" + f0(val);
+            
+            const list = toN(document.getElementById("recList").value);
+            document.getElementById("priceDisplay").textContent = "$" + f0(list);
+            document.getElementById("recList").value = f0(list);
         }
 
-        window.editBpoType = function() {
-            const t = prompt("BPO Type (Sale, Lease, Both):", document.getElementById("bpoTypeLabel").textContent);
-            if (t !== null) setBpoType(t);
-        };
-
         window.resetToDefaults = function() {
-            setPreparedFor(DEFAULTS.preparedFor);
-            setBpoType(DEFAULTS.bpoType);
-            document.getElementById("indicatedPerSF").value = DEFAULTS.indicatedPerSF;
-            document.getElementById("recommendedListPrice").value = fmt0(DEFAULTS.recommendedListPrice);
+            document.getElementById("inPSF").value = "87.43";
+            document.getElementById("recList").value = "350,000";
             recalc();
         };
 
-        // Init
-        setPreparedFor(DEFAULTS.preparedFor);
-        setBpoType(DEFAULTS.bpoType);
-        buildCompsTable();
-        
-        const i1 = document.getElementById("indicatedPerSF");
-        const i2 = document.getElementById("recommendedListPrice");
-        if (i1) i1.addEventListener("input", recalc);
-        if (i2) i2.addEventListener("input", recalc);
-        
+        render();
+        document.getElementById("inPSF").addEventListener("input", recalc);
+        document.getElementById("recList").addEventListener("input", recalc);
         recalc();
     })();
 </script>
